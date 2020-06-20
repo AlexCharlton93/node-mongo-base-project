@@ -1,17 +1,19 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import helmet from 'helmet';
+import compression from 'compression';
 import * as bodyParser from 'body-parser';
-import { databaseService } from '../common/database';
-import { config } from '../common/config';
-import { controllerCatch } from '../common/errors';
+import { databaseService } from './common/database';
+import { config } from './common/config';
+import { controllerCatch } from './common/errors';
 
 async function initApp() {
     const app = express();
     
     // TODO: Should configure routes in a different file
-    var indexRouter = require('./routes/index');
-    var usersRouter = require('./routes/users');
+    var indexRouter = require('../routes/index');
+    var usersRouter = require('../routes/users');
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,8 +41,8 @@ async function initApp() {
 	app.use((err, request, response, next) => controllerCatch(err, request, response));
 
 	app.listen(config.environment.port, () => {
-		logger.info(`up and running on port: ${config.environment.port}`);
-		logger.info(`enviroment: ${process.env.NODE_ENV}`);
+		//logger.info(`up and running on port: ${config.environment.port}`);
+		//logger.info(`enviroment: ${process.env.NODE_ENV}`);
 	});
 
     app.use('/', indexRouter);
