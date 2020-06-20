@@ -41,8 +41,8 @@ async function initApp() {
 	app.use((err, request, response, next) => controllerCatch(err, request, response));
 
 	app.listen(config.environment.port, () => {
-		//logger.info(`up and running on port: ${config.environment.port}`);
-		//logger.info(`enviroment: ${process.env.NODE_ENV}`);
+		console.log(`up and running on port: ${config.environment.port}`);
+		console.log(`enviroment: ${process.env.NODE_ENV}`);
 	});
 
     app.use('/', indexRouter);
