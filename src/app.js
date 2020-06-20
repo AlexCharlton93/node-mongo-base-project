@@ -4,12 +4,9 @@ import logger from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 import * as bodyParser from 'body-parser';
-import { databaseService } from './common/database';
+import { setupApp } from './common/setup';
 import { config } from './common/config';
 import { controllerCatch } from './common/errors';
-
-// Controllers
-import { AuthController } from './app/auth';
 
 async function initApp() {
     const app = express();
@@ -44,10 +41,7 @@ async function initApp() {
 		console.log(`enviroment: ${process.env.NODE_ENV}`);
 	});
 
-    await databaseService();
-	// app.use('/', authController);
-	AuthController(app);
-
+	await setupApp(app);
 }
 
 initApp();
