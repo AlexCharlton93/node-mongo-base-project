@@ -20,7 +20,6 @@ export const AuthController = (app) => {
 };
 
 export const authenticate = () => async (request, response) => {
-    console.log("Hit");
     try {
         const jwt = await generateToken(request);
 
@@ -31,5 +30,5 @@ export const authenticate = () => async (request, response) => {
 };
 
 const registerRoutes = (app) => {
-  app.get(auth, authenticate);
+  app.get(auth, authenticate());
 }
