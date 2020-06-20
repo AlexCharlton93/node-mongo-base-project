@@ -8,13 +8,12 @@ import { databaseService } from './common/database';
 import { config } from './common/config';
 import { controllerCatch } from './common/errors';
 
+// Controllers
+import { AuthController } from './app/auth';
+
 async function initApp() {
     const app = express();
-    
-    // TODO: Should configure routes in a different file
-    var indexRouter = require('../routes/index');
-    var usersRouter = require('../routes/users');
-
+	
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -45,10 +44,10 @@ async function initApp() {
 		console.log(`enviroment: ${process.env.NODE_ENV}`);
 	});
 
-    app.use('/', indexRouter);
-    app.use('/users', usersRouter);
-
     await databaseService();
+	// app.use('/', authController);
+	AuthController(app);
+
 }
 
 initApp();
