@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { HttpError, errorTypes } from '../../../common/errors';
-import { UserFindByEmail } from '../../../common/services/user';
+import { userFindByEmail } from '../../../common/services/user';
 import { authErrorMessages } from '../shared';
 import { config } from '../../../common/config';
 
@@ -10,7 +10,7 @@ export const generateToken = async(request) => {
 
     const { body: { emailAddress, password } } = request;
 
-    const user = await UserFindByEmail(emailAddress);
+    const user = await userFindByEmail(emailAddress);
     if (!user) {
         throw new HttpError(authErrorMessages.emailAddressPassword, authErrorMessages.emailAddressPassword, errorTypes.INVALID_OPERATION);
     }

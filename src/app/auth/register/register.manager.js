@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { HttpError, errorTypes } from '../../../common/errors';
-import { UserFindByEmail, UserRegister } from '../../../common/services/user';
+import { userFindByEmail, userRegister } from '../../../common/services/user';
 import { authErrorMessages } from '../shared';
 import { config } from '../../../common/config';
 
@@ -19,7 +19,7 @@ export const createAccount = async(request) => {
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
-    const user = await UserRegister(emailAddress, encryptedPassword);
+    const user = await userRegister(emailAddress, encryptedPassword);
 
     if (!user) {
         throw new HttpError(authErrorMessages.unableToRegister, authErrorMessages.unableToRegister, errorTypes.INVALID_OPERATION);
@@ -37,13 +37,12 @@ export const createAccount = async(request) => {
 };
 
 const _checkIfAlreadyRegistered = async(emailAddress) => {
-    const user = await UserFindByEmail(emailAddress);
+    const user = await userFindByEmail(emailAddress);
 
     if (user) {
         throw new HttpError(authErrorMessages.alreadyRegistered, authErrorMessages.alreadyRegistered, errorTypes.INVALID_OPERATION);
     }
 }
-
 
 const _validateRequest = (request) => {
     if (!request.body) {

@@ -1,10 +1,10 @@
 import { Model } from './user.model';
 
-export const UserFindByEmail = async(emailAddress) => {
+export const userFindByEmail = async(emailAddress) => {
     return Model.findOne({ emailAddress }); 
 }
 
-export const UserRegister = async(emailAddress, password) => {
+export const userRegister = async(emailAddress, password) => {
     const user = new Model({
         emailAddress,
         password
@@ -13,9 +13,16 @@ export const UserRegister = async(emailAddress, password) => {
     return user.save();
 }
 
-export const UserUpdatePassword = async(emailAddress, password) => {
+export const userUpdatePassword = async(emailAddress, password) => {
     return Model.findOneAndUpdate(
         { emailAddress },
         { password },
+    );
+}
+
+export const userUpdateVerificationCode = async(emailAddress, verificationCode) => {
+    return Model.findOneAndUpdate(
+        { emailAddress },
+        { verificationCode },
     );
 }

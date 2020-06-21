@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { HttpError, errorTypes } from '../../../common/errors';
-import { UserFindByEmail, UserUpdatePassword } from '../../../common/services/user';
+import { userFindByEmail, userUpdatePassword } from '../../../common/services/user';
 import { authErrorMessages } from '../shared';
 
 export const updatePassword = async(request) => {
@@ -8,7 +8,7 @@ export const updatePassword = async(request) => {
 
     const { body: { emailAddress, newPassword, verificationCode } } = request;
 
-    const user = await UserFindByEmail(emailAddress);
+    const user = await userFindByEmail(emailAddress);
 
     if (!user) {
         throw new HttpError(
@@ -28,7 +28,7 @@ export const updatePassword = async(request) => {
 
     const encryptedPassword = bcrypt.hashSync(newPassword, 10);
 
-    await UserUpdatePassword(
+    await userUpdatePassword(
         emailAddress,
         encryptedPassword
     );
