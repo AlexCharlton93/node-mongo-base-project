@@ -11,20 +11,18 @@ export const generateToken = async(request) => {
     const { body: { emailAddress, password } } = request;
 
     const user = await UserFindByEmail(emailAddress);
-
     if (!user) {
         throw new HttpError(authErrorMessages.emailAddressPassword, authErrorMessages.emailAddressPassword, errorTypes.INVALID_OPERATION);
     }
 
     const passwordMatch = bcrypt.compareSync(password, user.password);
-
     if (!passwordMatch) {
         throw new HttpError(authErrorMessages.emailAddressPassword, authErrorMessages.emailAddressPassword, errorTypes.INVALID_OPERATION);
     }
 
-    // TODO: Consider adding an expiration on the token
-    const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, config.secretKey);
-
+    const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, config.secretKey, {
+        expiresIn: config.JwtExpiryTime,
+      });
     return {
         token,
     };
