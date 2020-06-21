@@ -30,5 +30,5 @@ export const authenticate = () => async (request, response) => {
 };
 
 const registerRoutes = (app) => {
-  app.get(auth, authenticate());
+  app.post(auth, authenticate());
 }

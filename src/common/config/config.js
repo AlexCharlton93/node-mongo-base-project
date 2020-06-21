@@ -6,5 +6,6 @@ export const config = {
     },
     environment: {
         port: 3001
-    }
+    },
+    secretKey: 'Lfwe67fDYxw23!'
 };

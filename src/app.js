@@ -18,7 +18,7 @@ async function initApp() {
     app.use(express.json());
     app.use(cookieParser());
 
-    // remove security risk headers
+    // Remove security risk headers
 	app.disable('x-powered-by');
 	app.disable('etag');
 	app.disable('Server');
