@@ -4,9 +4,11 @@ import {
     internalMessages,
     controllerCatch,
 } from "../../common/errors";
-import { loginRoute, registerRoute } from "../../common/routes";
+import { statusCodes } from '../../common/status-codes';
+import { loginRoute, registerRoute, resetPasswordRoute } from "../../common/routes";
 import { generateToken } from "./login";
 import { createAccount } from "./register";
+import { updatePassword } from "./reset-password";
 
 export const AuthController = (app) => {
     if (!app) {
@@ -19,6 +21,12 @@ export const AuthController = (app) => {
 
     registerRoutes(app);
 };
+
+const registerRoutes = (app) => {
+    app.post(loginRoute, authenticate());
+    app.post(registerRoute, register());
+    app.post(resetPasswordRoute, resetPassword());
+}
 
 export const authenticate = () => async (request, response) => {
     try {
@@ -40,7 +48,12 @@ export const register = () => async (request, response) => {
     }
 };
 
-const registerRoutes = (app) => {
-  app.post(loginRoute, authenticate());
-  app.post(registerRoute, register());
-}
+export const resetPassword = () => async (request, response) => {
+    try {
+        await updatePassword(request);
+
+        response.sendStatus(statusCodes.OK);
+    } catch (e) {
+        controllerCatch(e, request, response);
+    }
+};
