@@ -34,8 +34,9 @@ const properties = {
 	},
 	role: {
 		type: Number,
-		required: true,
+		required: false,
 		validate: regex.user.role,
+		// TODO: Create default value for this
 	},
 	verificationCode: {
 		type: String,

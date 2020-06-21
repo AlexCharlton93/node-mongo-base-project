@@ -22,7 +22,8 @@ export const generateToken = async(request) => {
 
     const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, config.secretKey, {
         expiresIn: config.JwtExpiryTime,
-      });
+    });
+
     return {
         token,
     };

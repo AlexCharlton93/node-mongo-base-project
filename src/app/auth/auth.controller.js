@@ -4,8 +4,9 @@ import {
     internalMessages,
     controllerCatch,
 } from "../../common/errors";
-import { auth } from "../../common/routes";
+import { loginRoute, registerRoute } from "../../common/routes";
 import { generateToken } from "./login";
+import { createAccount } from "./register";
 
 export const AuthController = (app) => {
     if (!app) {
@@ -29,6 +30,17 @@ export const authenticate = () => async (request, response) => {
     }
 };
 
+export const register = () => async (request, response) => {
+    try {
+        const user = await createAccount(request);
+
+        response.send(user);
+    } catch (e) {
+        controllerCatch(e, request, response);
+    }
+};
+
 const registerRoutes = (app) => {
-  app.post(auth, authenticate());
+  app.post(loginRoute, authenticate());
+  app.post(registerRoute, register());
 }
