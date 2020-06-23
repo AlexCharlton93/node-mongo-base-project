@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon --exec babel-node src/app.js",
-    "test": "jest --config ./jest.config.json",
+    "test": "jest --config config/jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {

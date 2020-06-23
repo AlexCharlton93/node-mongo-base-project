@@ -1,17 +1,30 @@
 {
-    "configurations": [
-        {
-          "type": "node",
-          "request": "launch",
-          "name": "Debug Node API",
-          "program": "${workspaceFolder}/src/app.js",
-          "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
-          "runtimeArgs": [
-            "--nolazy"
-          ],
-          "env": {
-            "BABEL_ENV": "debug"
-          }
-        },
-      ]
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Node API",
+      "program": "${workspaceFolder}/src/app.js",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+      "runtimeArgs": ["--nolazy"],
+      "env": {
+        "BABEL_ENV": "debug"
+      }
+    },
+    {
+      "name": "Run Unit Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "stopOnEntry": false,
+      "args": [
+        "--runInBand",
+        "--config=${workspaceRoot}/config/jest-unit.config.json"
+      ],
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+      "runtimeExecutable": null,
+      "env": { "NODE_ENV": "test" }
+    }
+  ]
 }
