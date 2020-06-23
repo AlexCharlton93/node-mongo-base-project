@@ -3,7 +3,7 @@
         {
           "type": "node",
           "request": "launch",
-          "name": "Launch Program",
+          "name": "Debug Node API",
           "program": "${workspaceFolder}/src/app.js",
           "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
           "runtimeArgs": [
