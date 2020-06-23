@@ -12,18 +12,36 @@
       }
     },
     {
-      "name": "Run Unit Tests",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/node_modules/.bin/jest",
-      "stopOnEntry": false,
+      "name": "Run Unit Tests",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
       "args": [
         "--runInBand",
-        "--config=${workspaceRoot}/config/jest-unit.config.json"
+        "--no-cache",
+        "--config=${workspaceRoot}/config/jest.config.json"
       ],
+      "outFiles": ["${workspaceRoot}/*.js"],
       "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
       "console": "integratedTerminal",
-      "runtimeExecutable": null,
+      "env": { "NODE_ENV": "test" }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Unit Tests - Watch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand",
+        "--no-cache",
+        "--watchAll",
+        "--config=${workspaceRoot}/config/jest.config.json"
+      ],
+      "outFiles": ["${workspaceRoot}/*.js"],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
       "env": { "NODE_ENV": "test" }
     }
   ]
