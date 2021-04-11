@@ -31,5 +31,7 @@ export function controllerCatch(err, request, response) {
 	}
 
 	response.status(responseCode);
-	response.json(errorMessage);
+	response.json({
+		error: errorMessage
+	});
 }

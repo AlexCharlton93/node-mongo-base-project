@@ -10,6 +10,23 @@
 			"item": [
 				{
 					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let ok = responseCode.code === 200; \r",
+									"tests[\"Successful request\"] = ok; \r",
+									"  \r",
+									"if(ok) { \r",
+									"    let jsonData = JSON.parse(responseBody); \r",
+									"    pm.environment.set(\"token\", \"Bearer \" + jsonData.token); \r",
+									"} "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -21,7 +38,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailAddress\": \"alex-charlton@live.co.uk\",\r\n    \"password\": \"Password123#\"\r\n}"
+							"raw": "{\r\n    \"emailAddress\": \"\",\r\n    \"password\": \"\"\r\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/1.0/auth/login",
@@ -37,39 +54,8 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Register",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"emailAddress\": \"alex-charlton@live.co.uk\",\r\n    \"password\": \"Password123#\",\r\n    \"confirmPassword\" : \"Password123#\"\r\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/1.0/auth/register",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"1.0",
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Example",
@@ -81,7 +67,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYTRkNjQ0ZS1lNjhkLTRiZDAtYTdjMy03MzU0N2JhMDQwZTQiLCJ1c2VyRW1haWwiOiJhbGV4LWNoYXJsdG9uQGxpdmUuY28udWsiLCJpYXQiOjE1OTQ0NjkxODAsImV4cCI6MTU5NDQ3Mjc4MH0.EWW3nEVtLMMLYsq7Ku-WNyB_pZcupB2PEJJz1TQ01Do",
+								"value": "{{token}}",
 								"type": "text"
 							},
 							{
@@ -104,9 +90,41 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"\",\r\n    \"name\": \"\",\r\n    \"password\": \"\",\r\n    \"confirmPassword\" : \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/1.0/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"1.0",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
