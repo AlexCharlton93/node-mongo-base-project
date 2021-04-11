@@ -1,14 +1,10 @@
 import mongoose from 'mongoose';
-import { config } from '../config';
 
 mongoose.Promise = global.Promise;
 
 export async function databaseService() {
-	const { database } = config;
-
-	await mongoose.connect(`mongodb://${database.uri}:${database.port}/${database.databaseName}`, {
+	await mongoose.connect(`mongodb://${process.env.DB_URI}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
 	});
 }
-

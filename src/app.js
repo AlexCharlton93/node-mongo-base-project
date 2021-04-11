@@ -5,12 +5,13 @@ import helmet from 'helmet';
 import compression from 'compression';
 import * as bodyParser from 'body-parser';
 import { setupApp } from './common/setup';
-import { config } from './common/config';
 import { controllerCatch } from './common/errors';
+import dotenv from 'dotenv';
+dotenv.config();
 
 async function initApp() {
     const app = express();
-	
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -30,15 +31,15 @@ async function initApp() {
 			},
 		}),
     );
-    
+
     app.use(compression());
 
     // eslint-disable-next-line no-unused-vars
 	app.use((err, request, response, next) => controllerCatch(err, request, response));
 
-	app.listen(config.environment.port, () => {
-		console.log(`Running on port: ${config.environment.port}`);
-		console.log(`Environment: ${process.env.NODE_ENV}`);
+	app.listen(process.env.APP_PORT, () => {
+		console.log(`Running on port: ${process.env.APP_PORT}`);
+		console.log(`Environment: ${process.env.APP_ENVIRONMENT}`);
 	});
 
 	await setupApp(app);

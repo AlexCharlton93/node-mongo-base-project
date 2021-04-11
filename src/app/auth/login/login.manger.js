@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import { HttpError, errorTypes } from '../../../common/errors';
 import { userFindByEmail } from '../../../common/services/user';
 import { authErrorMessages } from '../shared';
-import { config } from '../../../common/config';
 
 export const generateToken = async(request) => {
     _validateRequest(request);
@@ -20,8 +19,8 @@ export const generateToken = async(request) => {
         throw new HttpError(authErrorMessages.emailAddressPassword, authErrorMessages.emailAddressPassword, errorTypes.INVALID_OPERATION);
     }
 
-    const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, config.secretKey, {
-        expiresIn: config.JwtExpiryTime,
+    const token = jwt.sign({ userId: user._id, userEmail: user.emailAddress }, process.env.APP_JWT_SECRET_KEY, {
+        expiresIn: process.env.APP_JWT_EXPIRY_TIME,
     });
 
     return {
