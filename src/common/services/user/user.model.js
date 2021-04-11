@@ -21,6 +21,11 @@ const properties = {
 		default: uuid,
 		validate: regex.uuidv4,
 	},
+	name: {
+		type: String,
+		required: true,
+		default: 'Guest',
+	},
 	emailAddress: {
 		type: String,
 		required: true,
@@ -46,6 +51,15 @@ const properties = {
 		type: Boolean,
 		default: true,
 	},
+	subscriptionValid: {
+		type: Boolean,
+		default: false,
+	},
+    createdAt: {
+        type: Date, 
+        required: true, 
+        default: Date.now
+    }
 };
 
 const schema = new mongoose.Schema(properties, options);

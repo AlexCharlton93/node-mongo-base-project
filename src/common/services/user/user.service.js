@@ -4,8 +4,13 @@ export const userFindByEmail = async(emailAddress) => {
     return Model.findOne({ emailAddress }); 
 }
 
-export const userRegister = async(emailAddress, password) => {
+export const userFindById = async(userId) => {
+    return Model.findOne({ _id: userId }); 
+}
+
+export const userRegister = async(name, emailAddress, password) => {
     const user = new Model({
+        name,
         emailAddress,
         password
     });
