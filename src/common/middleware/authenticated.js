@@ -13,7 +13,9 @@ export const verifyToken = (req, res, next) => {
 
 		jwt.verify(bearerToken, process.env.APP_JWT_SECRET_KEY, (err) => {
 			if (err) {
-				res.sendStatus(statusCodes.FORBIDDEN);
+				res.status(statusCodes.FORBIDDEN).send({
+					message: 'Please login and try again.'
+				});
 			} else {
 				req.token = bearerToken;
 			}
@@ -24,6 +26,8 @@ export const verifyToken = (req, res, next) => {
 
 		next();
 	} else {
-		res.sendStatus(statusCodes.FORBIDDEN);
+		res.status(statusCodes.FORBIDDEN).send({
+			message: 'Please login and try again.'
+		});
 	}
 }
