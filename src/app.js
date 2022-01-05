@@ -4,6 +4,7 @@ import logger from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 import * as bodyParser from 'body-parser';
+import cors from "cors";
 import { setupApp } from './common/setup';
 import { controllerCatch } from './common/errors';
 import dotenv from 'dotenv';
@@ -18,6 +19,7 @@ async function initApp() {
     app.use(logger('dev'));
     app.use(express.json());
     app.use(cookieParser());
+    app.use(cors());
 
     // Remove security risk headers
 	app.disable('x-powered-by');
